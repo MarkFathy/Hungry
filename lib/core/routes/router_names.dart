@@ -1,11 +1,11 @@
 abstract class RouterNames {
-  static const String splash = '/l';
-    static const String bottomNavBar = '/';
+  static const String splash = '/';
+  static const String bottomNavBar = '/bottomNavBar';
   static const String login = '/login';
-  static const String signup = '/signUp';
+  static const String register = '/register';
   static const String home = '/home';
   static const String forgetPassword = '/profile';
- // static const String enterYourPhone = '/enterYourPhone';
+  // static const String enterYourPhone = '/enterYourPhone';
   static const String enterYourEmail = '/enterYourEmail';
   static const String changePassword = '/changePassword';
   static const String booking = '/booking';

@@ -21,39 +21,47 @@ class HomeView extends StatelessWidget {
     ];
     return GestureDetector(
       onTap: () =>FocusScope.of(context).unfocus(),
-      child: Scaffold(
-        body: Column(
-          children: [
-            AppHeader(),
-            CustomSearchBar(),
-            SizedBox(height: 20.h),
-            CategoriesListView(
-              categories: categories,
-              onCategorySelected: (String value) {},
-            ),
-
-            SizedBox(height: 40),
-            Card(
-              color: AppColors.whiteColor,
-              shadowColor: AppColors.darkGreyColor,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Image.asset('assets/images/test.png',
+      child:Scaffold(
+  body: GestureDetector(
+    onTap: () => FocusScope.of(context).unfocus(),
+    child: SingleChildScrollView(
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          AppHeader(),
+          SizedBox(height: 20.h),
+          CustomSearchBar(),
+          SizedBox(height: 20.h),
+          CategoriesListView(
+            categories: categories,
+            onCategorySelected: (value) {},
+          ),
+          SizedBox(height: 40.h),
+          Card(
+            color: AppColors.whiteColor,
+            shadowColor: AppColors.darkGreyColor,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Image.asset(
+                  'assets/images/test.png',
                   width: 150.w,
                   height: 200.h,
-                  ),
-                  Text('Cheeseburger '),
-                  Text('Wendy''s Burger '),
-                  
-
-                ],
-              ),
-
-            )
-          ],
-        ),
+                  fit: BoxFit.cover,
+                ),
+                SizedBox(height: 8.h),
+                Text('Cheeseburger'),
+                Text("Wendy's Burger"),
+              ],
+            ),
+          ),
+        ],
       ),
+    ),
+  ),
+)
+
     );
   }
 }

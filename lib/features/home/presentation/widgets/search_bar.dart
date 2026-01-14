@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hungry_app/features/auth/presentation/widgets/auth_text_form_field_widget.dart';
+import 'package:hungry_app/features/auth/presentation/views/widgets/auth_text_form_field_widget.dart';
 
 class CustomSearchBar extends StatelessWidget {
   const CustomSearchBar({super.key});
