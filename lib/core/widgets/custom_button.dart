@@ -43,6 +43,7 @@ class CustomButton extends StatelessWidget {
             ).copyWith(color: AppColors.whiteColor),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
           ),
         ),
       ),
