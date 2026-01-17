@@ -40,7 +40,7 @@ class CustomButton extends StatelessWidget {
             text,
             style: AppStyles.normalText(
               fontSize: 20,
-            ).copyWith(color: AppColors.primaryColor),
+            ).copyWith(color: AppColors.whiteColor),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),

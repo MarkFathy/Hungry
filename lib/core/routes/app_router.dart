@@ -6,6 +6,7 @@ import 'package:hungry_app/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:hungry_app/features/auth/presentation/views/login_view.dart';
 import 'package:hungry_app/features/auth/presentation/views/register_view.dart';
 import 'package:hungry_app/features/home/presentation/views/home_view.dart';
+import 'package:hungry_app/features/product/views/product_details_view.dart';
 import 'package:hungry_app/features/root/presentation/views/bottom_navbar_view.dart';
 import 'package:hungry_app/features/splash/presentation/splash_view.dart';
 
@@ -34,6 +35,7 @@ final GoRouter router = GoRouter(
     ),
     
     GoRoute(path: RouterNames.home, builder: (context,state) => const HomeView()),
+    GoRoute(path: RouterNames.productDetails, builder: (context,state) => const ProductDetailsView()),
     GoRoute(path: RouterNames.bottomNavBar, builder: (context,state) => const BottomNavBarView()),
   ],
 

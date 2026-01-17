@@ -4,15 +4,8 @@ abstract class RouterNames {
   static const String login = '/login';
   static const String register = '/register';
   static const String home = '/home';
-  static const String forgetPassword = '/profile';
+  static const String productDetails = '/productDetails';
+
   // static const String enterYourPhone = '/enterYourPhone';
-  static const String enterYourEmail = '/enterYourEmail';
-  static const String changePassword = '/changePassword';
-  static const String booking = '/booking';
-  static const String pharmaciesScreen = '/pharmaciesScreen';
-  static const String personalInfoView = '/personalInfoView';
-  static const String changePasswordView = '/changePasswordView';
-  static const String bookingTime = '/bookingTime';
-  static const String reportProblemView = '/reportProblemView';
-  static const String doctorProfileInfo = '/doctorProfileInfo';
+  
 }
