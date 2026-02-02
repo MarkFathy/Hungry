@@ -5,7 +5,7 @@ import 'package:hungry_app/core/error/exceptions.dart';
 import 'package:hungry_app/core/error/failure.dart';
 import 'package:hungry_app/features/auth/data/data_source/auth_local_datasource.dart';
 import 'package:hungry_app/features/auth/data/data_source/auth_remote_datasource.dart';
-import 'package:hungry_app/features/auth/domain/entities/user_entity.dart';
+import 'package:hungry_app/core/entities/user_entity.dart';
 import 'package:hungry_app/features/auth/domain/repo_abstract/auth_repo_abstarct.dart';
 
 class AuthRepoImpl implements AuthRepo {
@@ -28,7 +28,7 @@ class AuthRepoImpl implements AuthRepo {
         password: password,
       );
       await authLocalDatasource.cacheToken(user.token);
-     
+      await authLocalDatasource.cacheUser(user);
 
       return Right(user);
     } on InvalidCredentialsException catch (e) {
@@ -59,6 +59,8 @@ class AuthRepoImpl implements AuthRepo {
         image: image,
       );
       await authLocalDatasource.cacheToken(user.token);
+      await authLocalDatasource.cacheUser(user);
+
       return Right(user);
     } on InvalidCredentialsException catch (e) {
       return Left(InvalidCredentialsFailure(e.message));
@@ -86,4 +88,18 @@ class AuthRepoImpl implements AuthRepo {
     final token = await authLocalDatasource.getCachedToken();
     return token != null && token.isNotEmpty;
   }
+
+  @override
+Future<Either<Failure, UserEntity>> getCachedUser() async {
+  try {
+    final user = await authLocalDatasource.getCachedUser();
+    if (user == null) {
+      return Left(CacheFailure("No cached user found"));
+    }
+    return Right(user);
+  } catch (e) {
+    return Left(CacheFailure(e.toString()));
+  }
+}
+
 }

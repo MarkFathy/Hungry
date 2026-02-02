@@ -8,21 +8,30 @@ class CustomTextField extends StatefulWidget {
     this.hintText,
     this.labelText,
     this.controller,
-    this.isPassword = false, // new
+    this.isPassword = false,
     this.suffixIcon,
     this.prefixIcon,
     this.onTap,
     this.validator,
+    this.textColor,      
+    this.backgroundColor, 
+    this.readOnly,       
+    this.onChanged,        
   });
 
   final String? hintText;
   final String? labelText;
   final TextEditingController? controller;
-  final bool isPassword; // changed from obscureText
+  final bool isPassword;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
   final VoidCallback? onTap;
   final String? Function(String?)? validator;
+  final Color? textColor;
+  final Color? backgroundColor;
+  final bool? readOnly; 
+  final ValueChanged<String>? onChanged;
+
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -39,22 +48,26 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context) {
+    final textColor = widget.textColor ?? AppColors.whiteColor;
+    final fillColor = widget.backgroundColor ?? AppColors.primaryColor;
+
     return TextFormField(
-      cursorColor: AppColors.whiteColor,
-      style: const TextStyle(color: AppColors.whiteColor),
+      cursorColor: textColor,
+      style: TextStyle(color: textColor),
       obscureText: obscureText,
       onTap: widget.onTap,
-      readOnly: widget.onTap != null,
+      onChanged: widget.onChanged,
+      readOnly: widget.readOnly ?? widget.onTap != null, 
       controller: widget.controller,
       validator: widget.validator,
       decoration: InputDecoration(
         prefixIcon: widget.prefixIcon,
-        prefixIconColor: AppColors.whiteColor,
+        prefixIconColor: textColor,
         suffixIcon: widget.isPassword
             ? IconButton(
                 icon: Icon(
                   obscureText ? Icons.visibility_off : Icons.visibility,
-                  color: AppColors.whiteColor,
+                  color: textColor,
                 ),
                 onPressed: () {
                   setState(() {
@@ -63,27 +76,27 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 },
               )
             : widget.suffixIcon,
-        suffixIconColor: AppColors.whiteColor,
+        suffixIconColor: textColor,
         hintText: widget.hintText,
         labelText: widget.labelText,
-        labelStyle: const TextStyle(color: AppColors.whiteColor),
-        hintStyle: const TextStyle(color: AppColors.whiteColor),
+        labelStyle: TextStyle(color: textColor),
+        hintStyle: TextStyle(color: textColor),
         contentPadding: const EdgeInsets.symmetric(
           vertical: 15,
           horizontal: 20,
         ),
         filled: true,
-        fillColor: AppColors.primaryColor,
+        fillColor: fillColor,
         border: OutlineInputBorder(
-          borderSide: const BorderSide(color: AppColors.whiteColor),
+          borderSide: BorderSide(color: textColor),
           borderRadius: BorderRadius.circular(15.r),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: AppColors.whiteColor),
+          borderSide: BorderSide(color: textColor),
           borderRadius: BorderRadius.circular(15.r),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: AppColors.whiteColor),
+          borderSide: BorderSide(color: textColor),
           borderRadius: BorderRadius.circular(15.r),
         ),
       ),

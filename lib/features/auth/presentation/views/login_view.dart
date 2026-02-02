@@ -87,6 +87,8 @@ class LoginView extends StatelessWidget {
                             padding: const EdgeInsets.all(8.0),
                             child: CustomButton(
                               text: 'Login',
+                              textColor: AppColors.primaryColor,
+
                               height: 60.h,
                               width: double.infinity,
                               buttonColor: AppColors.whiteColor,
@@ -111,6 +113,7 @@ class LoginView extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: CustomButton(
                         text: 'Register',
+                        textColor: AppColors.primaryColor,
                         onPressed: () {
                           context.push(RouterNames.register);
                         },

@@ -1,47 +1,62 @@
 import 'package:dio/dio.dart';
-import 'package:hungry_app/core/network/api_const.dart';
+import 'package:hungry_app/features/auth/data/data_source/auth_local_datasource.dart';
 
 class ApiServices {
   final Dio _dio;
+  final AuthLocalDatasource authLocalDatasource;
 
-  ApiServices(this._dio);
+  ApiServices(this._dio, this.authLocalDatasource) {
+    // إضافة BaseUrl + Authorization Interceptor
+    _dio.options.baseUrl =
+        "https://sonic-zdi0.onrender.com/api"; // ApiConst.baseUrl
 
-  // GET request
+    _dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) async {
+          final token = await authLocalDatasource.getCachedToken();
+          if (token != null && token.isNotEmpty) {
+            options.headers['Authorization'] = 'Bearer $token';
+          }
+          return handler.next(options);
+        },
+      ),
+    );
+
+    // Logging optional
+    _dio.interceptors.add(
+      LogInterceptor(requestBody: true, responseBody: true),
+    );
+  }
+
   Future<Map<String, dynamic>> get({
     required String endPoint,
     Map<String, dynamic>? queryParameters,
   }) async {
-    final response = await _dio.get(
-      '${ApiConst.baseUrl}$endPoint',
-      queryParameters: queryParameters,
-    );
+    final response = await _dio.get(endPoint, queryParameters: queryParameters);
     return response.data;
   }
 
-  // POST request
   Future<Map<String, dynamic>> post({
     required String endPoint,
-    dynamic data, // can be Map<String,dynamic> or FormData
+    dynamic data,
   }) async {
-    final response = await _dio.post('${ApiConst.baseUrl}$endPoint', data: data);
+    final response = await _dio.post(endPoint, data: data);
     return response.data;
   }
 
-  // PUT request
   Future<Map<String, dynamic>> put({
     required String endPoint,
-    Map<String, dynamic>? data,
+    dynamic data,
   }) async {
-    final response = await _dio.put('${ApiConst.baseUrl}$endPoint', data: data);
+    final response = await _dio.put(endPoint, data: data);
     return response.data;
   }
 
-  // DELETE request
   Future<Map<String, dynamic>> delete({
     required String endPoint,
     Map<String, dynamic>? data,
   }) async {
-    final response = await _dio.delete('${ApiConst.baseUrl}$endPoint', data: data);
+    final response = await _dio.delete(endPoint, data: data);
     return response.data;
   }
 }

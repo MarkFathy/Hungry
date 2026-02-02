@@ -6,19 +6,19 @@ class CustomButton extends StatelessWidget {
   const CustomButton({
     super.key,
     this.buttonColor,
+    this.textColor, // optional text color
     required this.text,
     required this.onPressed,
     this.width,
     required this.height,
-    this.textColor,
   });
 
   final Color? buttonColor;
+  final Color? textColor; // optional text color
   final String text;
   final VoidCallback onPressed;
   final double? width;
   final double height;
-  final Color? textColor;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class CustomButton extends StatelessWidget {
             backgroundColor: buttonColor ?? AppColors.primaryColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
-              side: const BorderSide(color: AppColors.primaryColor),
+              side: BorderSide(color: buttonColor ?? AppColors.primaryColor),
             ),
           ),
           onPressed: onPressed,
@@ -40,7 +40,7 @@ class CustomButton extends StatelessWidget {
             text,
             style: AppStyles.normalText(
               fontSize: 20,
-            ).copyWith(color: AppColors.whiteColor),
+            ).copyWith(color: textColor ?? AppColors.whiteColor), 
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hungry_app/features/product/views/cubit/product_cubit.dart';
+import 'package:hungry_app/features/product/views/widgets/card_shimmer.dart';
 import 'package:hungry_app/features/product/views/widgets/topping_card.dart';
 
 class ToppingsListview extends StatelessWidget {
@@ -7,20 +10,27 @@ class ToppingsListview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 120,
-      child: ListView.builder(
-        physics: BouncingScrollPhysics(),
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) => Padding(
-          padding: EdgeInsets.only(right: 20.w), // space between cards
-          child: ToppingCard(
-            title: 'Tomato',
-            imagePath: 'assets/images/tomato.png',
+    return BlocBuilder<ProductCubit, ProductState>(
+      builder: (context, state) {
+        if (state.isLoadingToppings && state.toppings.isEmpty) {
+          return const CardShimmerListView();
+        }
+
+        return SizedBox(
+          height: 100.h,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: state.toppings.length,
+            itemBuilder: (_, index) {
+              final item = state.toppings[index];
+              return Padding(
+                padding: EdgeInsets.only(right: 5.w, left: 5.w),
+                child: ToppingCard(title: item.name, imagePath: item.image),
+              );
+            },
           ),
-        ),
-        itemCount: 6,
-      ),
+        );
+      },
     );
   }
 }

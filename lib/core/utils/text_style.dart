@@ -25,6 +25,10 @@ abstract class AppStyles {
       fontSize: fontSize.sp,
       fontWeight: FontWeight.bold,
       color: AppColors.blackColor,
+      
+
+      
+      
     );
   }
 }

@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:hungry_app/core/error/failure.dart';
 import 'package:hungry_app/core/usecase/base_usecase.dart';
-import 'package:hungry_app/features/auth/domain/entities/user_entity.dart';
+import 'package:hungry_app/core/entities/user_entity.dart';
 import 'package:hungry_app/features/auth/domain/repo_abstract/auth_repo_abstarct.dart';
 
 class RegisterUsecase implements BaseUseCase<UserEntity, RegisterParams> {

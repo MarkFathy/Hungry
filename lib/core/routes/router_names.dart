@@ -5,6 +5,8 @@ abstract class RouterNames {
   static const String register = '/register';
   static const String home = '/home';
   static const String productDetails = '/productDetails';
+    static const profile = '/profile';
+
 
   // static const String enterYourPhone = '/enterYourPhone';
   

@@ -6,6 +6,7 @@ import 'package:hungry_app/core/utils/text_style.dart';
 class ToppingCard extends StatelessWidget {
   final String title;
   final String imagePath;
+  final bool isSelected; // new
   final VoidCallback? onAdd;
   final VoidCallback? onTapCard;
 
@@ -13,6 +14,7 @@ class ToppingCard extends StatelessWidget {
     super.key,
     required this.title,
     required this.imagePath,
+    this.isSelected = false, // default false
     this.onAdd,
     this.onTapCard,
   });
@@ -23,8 +25,8 @@ class ToppingCard extends StatelessWidget {
       child: GestureDetector(
         onTap: onTapCard,
         child: Container(
-          width: 85,
-          height: 105,
+          width: 100.w,
+          height: 125.h,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15.r),
             boxShadow: [
@@ -33,6 +35,7 @@ class ToppingCard extends StatelessWidget {
           ),
           child: Stack(
             children: [
+              // Bottom brown container
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
@@ -57,7 +60,7 @@ class ToppingCard extends StatelessWidget {
                           ),
                           Spacer(),
 
-                          // Plus button
+                          // Plus / Minus button
                           GestureDetector(
                             onTap: onAdd,
                             child: Container(
@@ -67,7 +70,7 @@ class ToppingCard extends StatelessWidget {
                                 shape: BoxShape.circle,
                               ),
                               child: Icon(
-                                Icons.add,
+                                isSelected ? Icons.remove : Icons.add, // change icon
                                 color: Colors.white,
                                 size: 15.sp,
                               ),
@@ -80,20 +83,19 @@ class ToppingCard extends StatelessWidget {
                   ),
                 ),
               ),
-              const Spacer(),
 
               // Top white container with image
               Align(
                 alignment: Alignment.topCenter,
                 child: Container(
-                  height: 70,
+                  height: 55,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(25),
                   ),
                   child: Center(
-                    child: Image.asset(
+                    child: Image.network(
                       imagePath,
                       width: 55.w,
                       fit: BoxFit.contain,

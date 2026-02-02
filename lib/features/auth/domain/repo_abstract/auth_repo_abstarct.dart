@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:hungry_app/core/error/failure.dart';
-import 'package:hungry_app/features/auth/domain/entities/user_entity.dart';
+import 'package:hungry_app/core/entities/user_entity.dart';
 
 abstract class AuthRepo {
   
@@ -22,7 +22,8 @@ abstract class AuthRepo {
 
   Future<Either<Failure, void>> logout();
 
- Future<bool> isLoggedIn();
+  Future<bool> isLoggedIn();
+  Future<Either<Failure, UserEntity>> getCachedUser();
 
 
 

@@ -1,4 +1,4 @@
-import 'package:hungry_app/features/auth/domain/entities/user_entity.dart';
+import 'package:hungry_app/core/entities/user_entity.dart';
 
 class UserModel extends UserEntity {
   const UserModel({
@@ -32,6 +32,9 @@ class UserModel extends UserEntity {
       'phone':phone
     };
   }
+
+  UserEntity toEntity() => this;
+
 }
 
 
