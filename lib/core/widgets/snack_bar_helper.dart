@@ -17,6 +17,9 @@ class SnackBarHelper {
         content: Text(message),
         backgroundColor: Colors.green,
         behavior: SnackBarBehavior.floating,
+        duration: Duration(
+          milliseconds: 600
+        ),
       ),
     );
   }

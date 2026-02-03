@@ -63,6 +63,31 @@ double calculateTotal(List<CartItemEntity> items) {
   );
 }
 
+
+void changeQuantity({
+  required int itemId,
+  required int quantity,
+}) {
+  if (state is CartSuccessState && quantity >= 1) {
+    final currentState = state as CartSuccessState;
+
+    final updatedItems = currentState.items.map((item) {
+      if (item.itemId == itemId) {
+        return item.copyWith(quantity: quantity);
+      }
+      return item;
+    }).toList();
+
+    emit(
+      CartSuccessState(
+        items: updatedItems,
+        totalPrice: calculateTotal(updatedItems),
+      ),
+    );
+  }
+}
+
+
 }
 
 

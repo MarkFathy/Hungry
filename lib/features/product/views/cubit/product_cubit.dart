@@ -83,17 +83,34 @@ class ProductCubit extends Cubit<ProductState> {
 
   // Final add to cart
   Future<void> addToCart(ProductEntity product) async {
-    final result = await addToCartUseCase(
-      AddToCartParams(
-        productId: product.id,
-        toppingIds: state.selectedToppings.map((e) => e.id).toList(),
-        sideOptionIds: state.selectedSideOptions.map((e) => e.id).toList(),
-      ),
-    );
+  emit(state.copyWith(
+    isAddingToCart: true,
+    addToCartError: null,
+    cartAddedSuccess: false,
+  ));
 
-    result.fold(
-      (failure) => emit(state.copyWith(addToCartError: failure.message)),
-      (_) => emit(state.copyWith(cartAddedSuccess: true)),
-    );
-  }
+  final result = await addToCartUseCase(
+    AddToCartParams(
+      productId: product.id,
+      toppingIds: state.selectedToppings.map((e) => e.id).toList(),
+      sideOptionIds: state.selectedSideOptions.map((e) => e.id).toList(),
+    ),
+  );
+
+  result.fold(
+    (failure) => emit(
+      state.copyWith(
+        isAddingToCart: false,
+        addToCartError: failure.message,
+      ),
+    ),
+    (_) => emit(
+      state.copyWith(
+        isAddingToCart: false,
+        cartAddedSuccess: true,
+      ),
+    ),
+  );
+}
+
 }

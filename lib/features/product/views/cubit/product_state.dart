@@ -11,6 +11,10 @@ class ProductState extends Equatable {
   final String? sideOptionsError;
   final String? addToCartError;
   final bool cartAddedSuccess;
+  final bool isAddingToCart;
+
+  
+  
 
   const ProductState({
     required this.isLoadingToppings,
@@ -19,6 +23,8 @@ class ProductState extends Equatable {
     required this.sideOptions,
     required this.selectedToppings,
     required this.selectedSideOptions,
+    required this.isAddingToCart,
+
     this.toppingsError,
     this.sideOptionsError,
     this.addToCartError,
@@ -33,6 +39,8 @@ class ProductState extends Equatable {
         selectedToppings: [],
         selectedSideOptions: [],
         cartAddedSuccess: false,
+          isAddingToCart: false,
+
       );
 
   ProductState copyWith({
@@ -46,6 +54,8 @@ class ProductState extends Equatable {
     String? sideOptionsError,
     String? addToCartError,
     bool? cartAddedSuccess,
+    bool? isAddingToCart,
+
   }) {
     return ProductState(
       isLoadingToppings: isLoadingToppings ?? this.isLoadingToppings,
@@ -58,6 +68,8 @@ class ProductState extends Equatable {
       sideOptionsError: sideOptionsError ?? this.sideOptionsError,
       addToCartError: addToCartError ?? this.addToCartError,
       cartAddedSuccess: cartAddedSuccess ?? this.cartAddedSuccess,
+      isAddingToCart: isAddingToCart ?? this.isAddingToCart,
+
     );
   }
 
@@ -73,5 +85,7 @@ class ProductState extends Equatable {
         sideOptionsError,
         addToCartError,
         cartAddedSuccess,
+        isAddingToCart,
+
       ];
 }

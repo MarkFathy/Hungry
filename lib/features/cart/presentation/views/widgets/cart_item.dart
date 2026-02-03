@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hungry_app/core/utils/app_colors.dart';
 import 'package:hungry_app/core/utils/text_style.dart';
 import 'package:hungry_app/core/widgets/custom_button.dart';
 import 'package:hungry_app/core/widgets/custom_circular_indicator.dart';
 import 'package:hungry_app/features/cart/domain/entity/cart_item_entity.dart';
+import 'package:hungry_app/features/cart/presentation/cubit/cubit/cart_cubit.dart';
 import 'package:hungry_app/features/cart/presentation/views/widgets/increment_and_decrement_button.dart';
 
 class CartItem extends StatelessWidget {
@@ -60,14 +62,33 @@ class CartItem extends StatelessWidget {
                 // Quantity controls
                 Row(
                   children: [
-                    IncrementAndDecrementButton(text: '-', onPressed: () {}),
+                    IncrementAndDecrementButton(
+  text: '-',
+  onPressed: item.quantity > 1
+      ? () {
+          context.read<CartCubit>().changeQuantity(
+                itemId: item.itemId,
+                quantity: item.quantity - 1,
+              );
+        }
+      : () {},
+),
+
                     SizedBox(width: 10.w),
                     Text(
                       '${item.quantity}',
                       style: AppStyles.normalTextBlack(fontSize: 25),
                     ),
                     SizedBox(width: 10.w),
-                    IncrementAndDecrementButton(text: '+', onPressed: () {}),
+IncrementAndDecrementButton(
+  text: '+',
+  onPressed: () {
+    context.read<CartCubit>().changeQuantity(
+          itemId: item.itemId,
+          quantity: item.quantity + 1,
+        );
+  },
+),
                   ],
                 ),
                 SizedBox(height: 20.h),

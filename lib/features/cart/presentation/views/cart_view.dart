@@ -16,7 +16,10 @@ class CartView extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: AppBar(title: const Text('My Cart')),
+      appBar: AppBar(
+        title: const Text('My Cart'),
+        backgroundColor: AppColors.whiteColor,
+        ),
       body: Padding(
   padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 20.h),
   child: BlocBuilder<CartCubit, CartState>(

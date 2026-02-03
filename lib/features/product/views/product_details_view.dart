@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hungry_app/core/utils/app_colors.dart';
 import 'package:hungry_app/core/utils/text_style.dart';
 import 'package:hungry_app/core/widgets/custom_button.dart';
+import 'package:hungry_app/core/widgets/custom_circular_indicator.dart';
 import 'package:hungry_app/core/widgets/snack_bar_helper.dart';
 import 'package:hungry_app/features/cart/domain/entity/cart_item_entity.dart';
 import 'package:hungry_app/features/cart/presentation/cubit/cubit/cart_cubit.dart';
@@ -216,17 +217,36 @@ class ProductDetailsView extends StatelessWidget {
                         ],
                       ),
                       Spacer(),
-                    CustomButton(
-  text: 'Add To Cart',
-  onPressed: () async {
-      await context.read<ProductCubit>().addToCart(product);
-       SnackBarHelper.showSuccess(
-      context,
-    '${product.name} added to cart!',
+                    BlocBuilder<ProductCubit, ProductState>(
+  builder: (context, state) {
+    return SizedBox(
+      height: 60.h,
+      width: 160.w, // نفس عرض الزر (ظبطه حسب تصميمك)
+      child: state.isAddingToCart
+          ? const Center(
+              child: CustomCircularProgress(
+                color: AppColors.primaryColor,
+              ),
+            )
+          : CustomButton(
+              text: 'Add To Cart',
+              onPressed: () async {
+                await context.read<ProductCubit>().addToCart(product);
+
+                if (context.mounted) {
+                  SnackBarHelper.showSuccess(
+                    context,
+                    '${product.name} added to cart!',
+                  );
+                }
+              },
+              height: 60.h,
+            ),
     );
   },
-  height: 60.h,
-)
+),
+
+
 
 
 
