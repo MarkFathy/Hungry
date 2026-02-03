@@ -8,6 +8,7 @@ import 'package:hungry_app/features/auth/presentation/views/login_view.dart';
 import 'package:hungry_app/features/auth/presentation/views/register_view.dart';
 import 'package:hungry_app/features/cart/presentation/cubit/cubit/cart_cubit.dart';
 import 'package:hungry_app/features/cart/presentation/cubit/cubit/cart_state.dart';
+import 'package:hungry_app/features/cart/presentation/views/order_checkout_view.dart';
 import 'package:hungry_app/features/home/presentation/cubit/home_cubit.dart';
 import 'package:hungry_app/features/home/presentation/views/home_view.dart';
 import 'package:hungry_app/features/product/views/cubit/product_cubit.dart';
@@ -63,10 +64,8 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: RouterNames.bottomNavBar,
       builder: (context, state) {
-
         return MultiBlocProvider(
           providers: [
-            
             BlocProvider(
               create: (_) => sl<HomeCubit>()
                 ..loadCategories()
@@ -75,15 +74,15 @@ final GoRouter router = GoRouter(
                 ..loadFavorites(),
             ),
             BlocProvider(create: (_) => sl<ProfileCubit>()..getProfile()),
-           BlocProvider.value(
-  value: sl<CartCubit>()..loadCart(),
-),
-
-            
+            BlocProvider.value(value: sl<CartCubit>()..loadCart()),
           ],
           child: const BottomNavBarView(),
         );
       },
+    ),
+    GoRoute(
+      path: RouterNames.orderCheckOut,
+      builder: (context, state) => const OrderCheckoutView(),
     ),
 
     //     GoRoute(
