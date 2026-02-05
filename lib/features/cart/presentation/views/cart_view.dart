@@ -95,7 +95,7 @@ class CartView extends StatelessWidget {
                   CustomButton(
                     text: 'Checkout',
                     onPressed: () {
-                      context.push(RouterNames.orderCheckOut);
+                      context.push(RouterNames.orderCheckOut,extra: state.totalPrice);
                     },
                     height: 50.h,
                   ),

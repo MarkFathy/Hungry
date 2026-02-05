@@ -81,9 +81,17 @@ final GoRouter router = GoRouter(
       },
     ),
     GoRoute(
-      path: RouterNames.orderCheckOut,
-      builder: (context, state) => const OrderCheckoutView(),
-    ),
+  path: RouterNames.orderCheckOut,
+  builder: (context, state) {
+    final orderPrice = state.extra as double;
+
+    return BlocProvider.value(
+      value: sl<CartCubit>()..calculateOrderSummary(orderPrice),
+      child: const OrderCheckoutView(),
+    );
+  },
+),
+
 
     //     GoRoute(
     //   path: RouterNames.profile,

@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:hungry_app/features/cart/domain/entity/cart_item_entity.dart';
+import 'package:hungry_app/features/cart/domain/entity/order_summary_entity.dart';
 
 abstract class CartState extends Equatable {
   const CartState();
@@ -61,4 +62,11 @@ class RemoveItemErrorState extends CartState {
 
   @override
   List<Object?> get props => [message];
+}
+
+
+class OrderSummaryState extends CartState {
+  final OrderSummaryEntity summary;
+
+  const OrderSummaryState(this.summary);
 }
