@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hungry_app/features/auth/presentation/views/register_view.dart';
 import 'package:hungry_app/features/cart/presentation/views/cart_view.dart';
 import 'package:hungry_app/features/home/presentation/views/home_view.dart';
+import 'package:hungry_app/features/orders/presentation/order_history_view.dart';
 import 'package:hungry_app/features/profile/presentation/views/profile_view.dart';
 part 'bottom_nav_state.dart';
 
@@ -16,7 +17,7 @@ class BottomNavBarCubit extends Cubit<BottomNavBarStates> {
   List<Widget> bottomNavScreens = [
     const HomeView(),
     const CartView(),
-    const RegisterView(),
+    const OrderHistoryView(),
     const ProfileView()
     // const SettingsView(),
   ];

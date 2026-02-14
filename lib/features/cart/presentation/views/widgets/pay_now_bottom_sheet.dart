@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:hungry_app/core/utils/app_colors.dart';
 import 'package:hungry_app/core/utils/text_style.dart';
 import 'package:hungry_app/core/widgets/custom_button.dart';
 import 'package:hungry_app/features/cart/presentation/views/widgets/success_dialog.dart';
 
 class PayNowBottomSheet extends StatelessWidget {
-  const PayNowBottomSheet({super.key});
+  const PayNowBottomSheet({super.key, required this.text});
+  final String text;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class PayNowBottomSheet extends StatelessWidget {
               ),
               SizedBox(height: 5.h),
               Text(
-                '500 EGP',
+                '$text EGP',
                 style: AppStyles.normalTextBlack(fontSize: 20).copyWith(
                   color: AppColors.primaryColor,
                   fontWeight: FontWeight.bold,
@@ -54,6 +54,8 @@ class PayNowBottomSheet extends StatelessWidget {
           CustomButton(
             text: 'Pay Now',
             onPressed: () {
+              
+              
               showSuccessDIalog(context: context);
             },
             height: 50.h,

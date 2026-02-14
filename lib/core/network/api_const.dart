@@ -13,4 +13,5 @@ class ApiConst {
   static const addToCart = '/cart/add';
   static const cart = '/cart';
   static const removeFromCart = '/cart/remove';
+  static const orders = '/orders';
 }

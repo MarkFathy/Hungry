@@ -70,3 +70,15 @@ class OrderSummaryState extends CartState {
 
   const OrderSummaryState(this.summary);
 }
+
+class OrderSubmitting extends CartState {}
+
+class OrderSuccess extends CartState {
+  final int orderId;
+  const OrderSuccess(this.orderId);
+}
+
+class OrderError extends CartState {
+  final String message;
+  const OrderError(this.message);
+}

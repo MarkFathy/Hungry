@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hungry_app/core/usecase/base_usecase.dart';
 import 'package:hungry_app/features/cart/domain/entity/cart_item_entity.dart';
+import 'package:hungry_app/features/cart/domain/usecases/carrt_order_usecase.dart';
 import 'package:hungry_app/features/cart/domain/usecases/get_cart_usecase.dart';
 import 'package:hungry_app/features/cart/domain/usecases/order_summary_usecase.dart';
 import 'package:hungry_app/features/cart/domain/usecases/remove_item_usecase.dart';
@@ -10,8 +11,9 @@ class CartCubit extends Cubit<CartState> {
   final GetCartUseCase getCartUseCase;
   final RemoveCartItemUseCase removeCartItemUseCase;
   final CalculateOrderSummaryUseCase calculateOrderSummaryUseCase;
+  final CreateOrderUseCase createOrderUseCase;
 
-  CartCubit({required this.calculateOrderSummaryUseCase,required this.removeCartItemUseCase,required this.getCartUseCase}) : super(CartInitial());
+  CartCubit({required this.createOrderUseCase,required this.calculateOrderSummaryUseCase,required this.removeCartItemUseCase,required this.getCartUseCase}) : super(CartInitial());
 
 Future<void> loadCart() async {
     emit(CartLoadingState());
@@ -95,6 +97,18 @@ void changeQuantity({
     emit(OrderSummaryState(summary));
   }
 
+
+
+  Future<void> submitOrder(List<CartItemEntity> items) async {
+    emit(OrderSubmitting());
+
+    final result = await createOrderUseCase(items);
+
+    result.fold(
+      (failure) => emit(OrderError(failure.message)),
+      (orderId) => emit(OrderSuccess(orderId)),
+    );
+  }
 
 }
 

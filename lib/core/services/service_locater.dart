@@ -11,6 +11,7 @@ import 'package:hungry_app/features/auth/domain/usecases/login_usecase.dart';
 import 'package:hungry_app/features/cart/data/datasource/cart_remote_data_source.dart';
 import 'package:hungry_app/features/cart/data/repo/cart_repo_impl.dart';
 import 'package:hungry_app/features/cart/domain/abstract_repo/cart_repo.dart';
+import 'package:hungry_app/features/cart/domain/usecases/carrt_order_usecase.dart';
 import 'package:hungry_app/features/cart/domain/usecases/get_cart_usecase.dart';
 import 'package:hungry_app/features/cart/domain/usecases/order_summary_usecase.dart';
 import 'package:hungry_app/features/cart/domain/usecases/remove_item_usecase.dart';
@@ -86,7 +87,12 @@ Future<void> init() async {
     ),
   );
 
-  sl.registerFactory(() => CartCubit(getCartUseCase: sl(),removeCartItemUseCase: sl(),calculateOrderSummaryUseCase: sl()));
+  sl.registerFactory(() => CartCubit(
+    getCartUseCase: sl(),
+    removeCartItemUseCase: sl(),
+    calculateOrderSummaryUseCase: sl(),
+    createOrderUseCase: sl()
+    ));
   //! ================= UseCases =================
   sl.registerLazySingleton(() => LoginUsecase(authRepo: sl()));
   sl.registerLazySingleton(() => RegisterUsecase(authRepo: sl()));
@@ -105,6 +111,8 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetCartUseCase(cartRepo: sl()));
   sl.registerLazySingleton(() => RemoveCartItemUseCase(cartRepo: sl()));
   sl.registerLazySingleton(() => CalculateOrderSummaryUseCase());
+  sl.registerLazySingleton(() => CreateOrderUseCase(cartRepo: sl()));
+
 
   //! ================= Repository =================
   sl.registerLazySingleton<AuthRepo>(
